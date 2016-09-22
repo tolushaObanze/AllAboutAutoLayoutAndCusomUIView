@@ -40,3 +40,8 @@ class YourViewController : UIViewController {
     }
 }
 ```
+### Notifications
+You can post notifications about happening events. You typically use this pattern, when you need not only one Subscriber.
+
+### KVO
+You can use KVO, but actually in Swift this is not prefered valiant because of its type unsafety.
