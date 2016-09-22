@@ -17,11 +17,11 @@ If you need activate or deactivate multiple constraints, use `NSLayoutConstraint
 *Maybe you don't need to call first method because maybe when you change constraint `active` or `constant` property, `setNeedsLayout` get called automatically, I don't know. For now safer approach for me to call both methods*</br>
 * Activating new constraint automatically trigger new layout pass and calls `updateLayout`so you don't need to write anything(like `setNeedsLayout` etc) after activating new constraint.
 
-When you call `removeFromSuperview()` method on your particular view, all constraints also removed!
+**When you call `removeFromSuperview()` method on your particular view, all constraints also removed! So, when you recreate the view again, you need to re-add constraints.**
 >**From Apple Docs:**
 *Calling this method removes any constraints that refer to the view you are removing, or that refer to any view in the subtree of the view you are removing.*
 
-So, when you recreate the view again, you need to re-add constraints.
+**You must activate view constraints only after you add this view in the view hierarchy: `self.addSubview(view)`!!!**
 
 ### Constraints Priority
 To all Constraints you can specify priority.
