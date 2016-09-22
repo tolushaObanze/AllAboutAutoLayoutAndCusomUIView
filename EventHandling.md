@@ -1,3 +1,5 @@
+## Event Handling
+
 ###Action / Target
 If you need your view to send standart events like value changed or touchUpInside, subclass UIControl instead of UIView.
 And write this when some event happened in your control: `self.sendActionsForControlEvents(.TouchUpInside)`
