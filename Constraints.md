@@ -1,4 +1,4 @@
-## Constraints and Anchors
+## Constraints
 ### Creating Constraints
 
 Constraints setting up dependencies with two objects</br>
