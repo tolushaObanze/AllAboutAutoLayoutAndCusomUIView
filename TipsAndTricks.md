@@ -1,65 +1,5 @@
 ##Custom View / Control Tips And Trics
 
-###Tip 1 - Event Handling Techniques
-####Action / Target
-If you need your view to send events like value changed or touchUpInside, subclass UIControl instead of UIView.
-And write this when some event happened in your control: `self.sendActionsForControlEvents(.TouchUpInside)`
-Add Gesture Recognizers to your control for easily handling user interactions.
-
-####Delegate
-If you need more complicated events, use delegate pattern (see the UITableView as an example)
-
-####Swift Closures
-As oppisite to delegate pattern, you can use swift closures (or Objective-C blocks).</br>
-**Example:**
-```swift
-class CustomView : UIView {
-    typealias ValueChangedClosure = (_ newValue : Int?) -> Void
-    typealias CenterLabelSetupClosure = (_ label: UILabel) -> Void
-    
-    var centerLabel : UILabel!
-    
-    var valueChangedClosure : ValueChangedClosure!
-    var centerLabelSetupClosure : CenterLabelSetupClosure!
-    
-    func doSomething() {
-    
-      //ValueChanged Event Happend
-      if valueChangedClosure != nil {
-        valueChangedClosure(newValue)
-      }
-    }
-    
-    func performAdditionalViewSetup() {
-      if centerLabelSetupClosure != nil && centerLabel != nil {
-        centerLabelSetupClosure(centerLabel)
-      }
-    }
-}
-
-class YourViewController : UIViewController {
-    var yourCustomView : YourCustomView!
-    
-    func viewDidLoad() {
-      //1. Init Your Custom View
-      //...
-      //2. Perform additional setup 
-      yourCustomView.centerLabelSetupClosure = {(label) in
-        label.backgroundColor = UIColor.whiteColor
-      }
-      
-      yourCustomView.performAdditionalSetup()
-      
-      //3. Event Handling
-      yourCustomView.valueChangedClosure = {(value) in
-        print("Value Changed \(value)")
-      }
-    }
-    
-    
-}
-```
-
 ###Tip 2 - About Constraints 
 When you developing on iOS 8 and above, and creating Constraints in code, instead of adding or deleting constraint like this: `self.addConstraint(constraint)`, `self.removeConstraint(constraint)`, use constraint `active` property. This automatically calls `addConstraint` or `removeConstraint` on needed view!
 If you need add or delete multiple constraints, use `NSLayoutConstraint.activateConstraints()` or `NSLayoutConstraint.deactivateConstraints()` 
@@ -141,9 +81,3 @@ let aspectRatioLabelWidthSelfWidthConstraint = NSLayoutConstraint(
 In you need to create complicated custom view, try to break it on smaller you custom subviews and then connect everything.
 ### Tip 7 - About Tag and Identifier
 If you have many subviews of your view, and need to indicate them. Use `tag` or add `identifier` property to them
-### Tip 8 - About Constraints and Removing View
-When you call `removeFromSuperview()` method on your particular view, all constraints also removed!
->**From Apple Docs:**
-*Calling this method removes any constraints that refer to the view you are removing, or that refer to any view in the subtree of the view you are removing.*
-
-So, when you recreate the view again, you need to re-add constraints.
